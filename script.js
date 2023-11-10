@@ -2,6 +2,8 @@ const w = 700;
 const h = 300;
 const padding = 40;
 
+let LARM = new Audio('/onlymp3.to - Boring Elevator Music Sound Effect Perfect Cut -RYaibgKKvyQ-192k-1699625755.mp3');
+
 function data() {
 
 d3.select("svg").remove();
@@ -83,6 +85,8 @@ d3.json("/albums.json").then(function(data) {
 function data2() {
     d3.select("svg").remove();
     
+    LARM.play();
+
     d3.json("/albums.json").then(function(data) {
     
         const tracks = data.flatMap(album => album.trackList);
