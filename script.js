@@ -110,8 +110,8 @@ function data2() {
             .attr("cy", h+10) 
             .attr("r", 2.5)
             .transition() 
-            .duration(500) 
-            .delay((track, i) => i * 100) 
+            .duration(1000) 
+            .delay((track, i) => i * 200) 
             .attr("cy", track => yScale(track.trackTimeInSeconds)); 
     
         // Definere akserne 
