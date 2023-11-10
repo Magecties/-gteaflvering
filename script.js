@@ -27,11 +27,11 @@ d3.json("/albums.json").then(function(data) {
         .enter()
         .append("circle")
         .attr("cx", track => xScale(track.songNumber))
-        .attr("cy", h) // Start below the chart
+        .attr("cy", h-h) // Start below the chart
         .attr("r", 2.5)
         .transition() // Start a transition
-        .duration(2000) // Duration of the animation in milliseconds
-        .delay((track, i) => i * 20) // Delay each circle's animation by its index
+        .duration(1000) // Duration of the animation in milliseconds
+        .delay((track, i) => i * 15) // Delay each circle's animation by its index
         .attr("cy", track => yScale(track.timesPlayed)); // Animate to the final y position
 
     // Definere akserne til x og y (læg mærke til de to typer!):
@@ -105,11 +105,11 @@ function data2() {
             .enter()
             .append("circle")
             .attr("cx", track => xScale(track.songNumber))
-            .attr("cy", h) // Start below the chart
+            .attr("cy", h+10) // Start below the chart
             .attr("r", 2.5)
             .transition() // Start a transition
-            .duration(2000) // Duration of the animation in milliseconds
-            .delay((track, i) => i * 20) // Delay each circle's animation by its index
+            .duration(500) // Duration of the animation in milliseconds
+            .delay((track, i) => i * 100) // Delay each circle's animation by its index
             .attr("cy", track => yScale(track.trackTimeInSeconds)); // Animate to the final y position
     
         // Definere akserne til x og y (læg mærke til de to typer!):
