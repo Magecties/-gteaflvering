@@ -2,6 +2,7 @@ const w = 700;
 const h = 300;
 const padding = 40;
 
+function data() {
 d3.json("/albums.json").then(function(data) {
     // Assuming data is an array of albums, we need to flatten it to get all tracks
     const tracks = data.flatMap(album => album.trackList);
@@ -73,3 +74,6 @@ d3.json("/albums.json").then(function(data) {
 }).catch(error => {
     console.error("Error loading the data: ", error);
 });
+
+
+}
