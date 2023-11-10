@@ -16,27 +16,22 @@ const yScale = d3.scaleLinear()
   .domain([0, 350])
   .range([h - padding, padding]);
   
-//Scatter plot
+// Scatter plot
 svg
   .selectAll("circle")
-  .data(dataset)
+  .data(data)
   .enter()
   .append("circle")
-  .selectAll("circle") 
-    .data(function(d) {
-      return d.trackList;
-    })
-    .enter()
-    .append("circle")
-    .attr("cx", function(d) {
-      return xScale3(d.songNumber);
-    })
-    .attr("cy", function(d) {
-      return yScale3(d.timesPlayed);
-    })
-    .attr("r", 2.5)
+  .attr("cx", function(d) {
+    return xScale(d.songNumber);
+  })
+  .attr("cy", function(d) {
+    return yScale(d.timesPlayed);
+  })
+  .attr("r", 2.5);
 
-    
+
+    /*
 //Labels
 svg
   .selectAll("text")
@@ -50,20 +45,20 @@ svg
     return xScale(d[0]) + 5;
   })
   .attr("y", function (d) {
-    /**
+    
      * Som med de andre tilfælde, hvor y-værdien skal bruges, skal vi rette koden til
      * den nye virkelighed.
      * Sidste gang skrev vi: return yScale(h - d[1]) - 5;
      * Nu skriver vi:
-     **/
+     
     return yScale(d[1]) - 5;
   })
   .attr("font-family", "sans-serif")
   .attr("font-size", "11px")
   .attr("fill", "red");
   
+*/
 
-/** --- Akser: --- */
 
 // Definere akserne til x og y (læg mærke til de to typer!):
 const xAxis = d3.axisBottom().scale(xScale).ticks(5);
