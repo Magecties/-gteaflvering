@@ -1,70 +1,42 @@
 // Width og height til SVG-elementet
 const w = 700;
 const h = 300;
-
+const padding = 40;
 
 d3.json("/data/albums.json").then(function(data) {
-
 //SVG-elementet
 const svg = d3.select("body").append("svg").attr("width", w).attr("height", h);
 
 //Skala for x-aksen
-const xScale = d3
-  .scaleLinear()
-  .domain([
-    0,
-    d3.max(dataset, function (d) {
-      return d[0];
-    }),
-  ])
-  .range([30, w - 30])
-  .nice();
+const xScale = d3.scaleLinear()
+  .domain([0, 160])
+  .range([padding, w - padding]);
 
-//Skala for y-aksen
-const yScale = d3
-  .scaleLinear()
-  .domain([
-    0,
-    d3.max(dataset, function (d) {
-      return d[1];
-    }),
-  ])
-  /**
-   * Sidste gang gik vi blot ud fra 0,0 i øverste venstre hjørne for y-værdierne også
-   * det betød at de blev tegnet oppefra og ned, så vi måtte trække dem fra h
-   * for at få dem flyttet ned. Ved at bytte om på rækkefølgen af de to tal i range
-   * kan vi få dem til at blive tegnet nedefra og op.
-   * Dette skrev vi sidste gang: .range([30, h - 30])
-   * Dette skriver vi nu:
-   **/
-  .range([h - 30, 30])
-  .nice();
-
+const yScale = d3.scaleLinear()
+  .domain([0, 350])
+  .range([h - padding, padding]);
+  
 //Scatter plot
 svg
   .selectAll("circle")
   .data(dataset)
   .enter()
   .append("circle")
-  //'d' et element i 'dataset', som selv er et array med x,y koordinater
-  .attr("cx", function (d) {
-    //Første værdi i indre array (x) - som scales med vores xScale
-    return xScale(d[0]);
-  })
-  .attr("cy", function (d) {
-    /**
-     * Anden værdi i indre array (y)  - som scales med vores yScale
-     * Den gamle måde for at få dem flyttet ned var jo at trække værdien fra h
-     * på denne måde: return yScale(h - d[1]);
-     * Nu er den del flyttet til scale-funktionen, så vi kan bare skrive:
-     **/
-    return yScale(d[1]);
-  })
-  // Radius er ny sat til at være kvadratroden af y-værdien
-  .attr("r", function (d) {
-    return Math.sqrt(d[1]);
-  });
+  .selectAll("circle") 
+    .data(function(d) {
+      return d.trackList;
+    })
+    .enter()
+    .append("circle")
+    .attr("cx", function(d) {
+      return xScale3(d.songNumber);
+    })
+    .attr("cy", function(d) {
+      return yScale3(d.timesPlayed);
+    })
+    .attr("r", 2.5)
 
+    
 //Labels
 svg
   .selectAll("text")
@@ -89,6 +61,7 @@ svg
   .attr("font-family", "sans-serif")
   .attr("font-size", "11px")
   .attr("fill", "red");
+  
 
 /** --- Akser: --- */
 
@@ -111,10 +84,5 @@ svg
   .attr("transform", "translate(" + 30 + ",0)")
   .call(yAxis);
 
-/**
- * Bonusopgave: Er der en værdi, som vi med fordel kan gemme i en variabel i dette eksempel?
- **/
-
-let hest = 5;
 
 })
