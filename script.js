@@ -2,6 +2,7 @@ const w = 700;
 const h = 300;
 const padding = 40;
 
+
 function data() {
 
 d3.select("svg").remove();
