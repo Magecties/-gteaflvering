@@ -3,7 +3,10 @@ const h = 300;
 const padding = 40;
 
 function data() {
+
+d3.select("svg").remove();
 d3.json("/albums.json").then(function(data) {
+    
     // Assuming data is an array of albums, we need to flatten it to get all tracks
     const tracks = data.flatMap(album => album.trackList);
 
@@ -32,6 +35,7 @@ d3.json("/albums.json").then(function(data) {
 
     // Definere akserne til x og y (læg mærke til de to typer!):
     const xAxis = d3.axisBottom().scale(xScale).ticks(5);
+
     const yAxis = d3.axisLeft().scale(yScale).ticks(5);
 
     // Lægge akserne til SVG-elementet:
