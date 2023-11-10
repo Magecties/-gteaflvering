@@ -6,7 +6,7 @@ d3.json("/albums.json").then(function(data) {
     // Assuming data is an array of albums, we need to flatten it to get all tracks
     const tracks = data.flatMap(album => album.trackList);
 
-    const svg = d3.select("body").append("svg").attr("width", w).attr("height", h);
+    const svg = d3.select("body").append("svg").attr("width", w).attr("height", h).style("margin-top","20px");
 
     const xScale = d3.scaleLinear()
         .domain([0, d3.max(tracks, track => track.songNumber)])
@@ -46,6 +46,30 @@ d3.json("/albums.json").then(function(data) {
         .append("g")
         .attr("transform", "translate(" + padding + ",0)")
         .call(yAxis);
+    // Append x-axis label
+    svg.append("text")
+        .attr("class", "x label")
+        .attr("text-anchor", "end")
+        .attr("x", w)
+        .attr("y", h - 50)
+        .text("Song number");
+
+    // Append y-axis label
+    svg.append("text")
+        .attr("class", "y label")
+        .attr("text-anchor", "end")
+        .attr("y", 50)
+        .attr("dy", ".75em")
+        .attr("transform", "rotate(-90)")
+        .text("Times played");
+
+    // Append title
+    svg.append("text")
+        .attr("x", w / 2)
+        .attr("y", 30)
+        .attr("text-anchor", "middle")
+        .style("font-size", "24px")
+        .text("Most played songs");
 }).catch(error => {
     console.error("Error loading the data: ", error);
 });
