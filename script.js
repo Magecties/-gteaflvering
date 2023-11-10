@@ -5,8 +5,9 @@ const padding = 40;
 function data() {
 
 d3.select("svg").remove();
+
 d3.json("/albums.json").then(function(data) {
-    
+
     // Assuming data is an array of albums, we need to flatten it to get all tracks
     const tracks = data.flatMap(album => album.trackList);
 
