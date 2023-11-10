@@ -3,17 +3,17 @@ const w = 700;
 const h = 300;
 const padding = 40;
 
-d3.json("/data/albums.json").then(function(data) {
+d3.json("/albums.json").then(function(data) {
 //SVG-elementet
 const svg = d3.select("body").append("svg").attr("width", w).attr("height", h);
 
 //Skala for x-aksen
 const xScale = d3.scaleLinear()
-  .domain([0, 160])
+  .domain([0, 1000])
   .range([padding, w - padding]);
 
 const yScale = d3.scaleLinear()
-  .domain([0, 350])
+  .domain([0, 1000])
   .range([h - padding, padding]);
   
 // Scatter plot
